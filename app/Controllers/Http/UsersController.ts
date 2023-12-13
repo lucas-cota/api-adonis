@@ -2,14 +2,12 @@ import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import User from "App/Models/User";
 
 export default class UsersController {
-  public async index({}: HttpContextContract) {
-    //lista usuários
+  public async index({}: HttpContextContract) { //lista usuários
     const user = await User.all();
     return user;
   }
 
-  public async store({ request, response }: HttpContextContract) {
-    // armazena
+  public async store({ request, response }: HttpContextContract) { // cria usuário
     const userData = request.only(["name", "password", "email"]);
     try {
       // Criando o usuário no banco de dados
@@ -22,7 +20,7 @@ export default class UsersController {
       // Aqui você pode retornar uma resposta de erro personalizada
       return response
         .status(400)
-        .send({ error: "Não foi possível criar o usuário" });
+        .send("Não foi possível criar o usuário");
     }
   }
 
